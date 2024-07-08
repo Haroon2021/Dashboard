@@ -1,11 +1,29 @@
-// 'use client'
+// NB this will be a server component because it is in the app folder
 // Async function to call data
-export const getData = async () => {
-  const searchResponse = await fetch(
-    `https://api.beta.ons.gov.uk/v1/datasets/TS008/editions/2021/versions/1/json`
+
+async function getTestData() {
+  const res = await fetch(
+    'https://api.beta.ons.gov.uk/v1/datasets/TS008/editions/2021/versions/1/json',
+    {
+      next: {
+        revalidate: 0, // use 0 to opt out of using cache
+      },
+    }
   );
 
-  const results: any = await searchResponse.json();
+  return res.json();
+}
 
-  return results;
-};
+export default async function TestData() {
+  // This calls the fetch function above and saves the data in testONDData object
+  const testONSData = await getTestData();
+  console.log('testONSData', testONSData);
+
+  return (
+    <>
+      <p>{testONSData.observations}</p>
+      <p>{testONSData.links.dataset_metadata.href}</p>
+      <p>{testONSData.dimensions[0].dimension_name}</p>
+    </>
+  );
+}
