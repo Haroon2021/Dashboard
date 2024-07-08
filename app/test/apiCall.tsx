@@ -7,6 +7,5 @@ export const getData = async () => {
 
   const results: any = await searchResponse.json();
 
-  return results ;
-  
+  return results;
 };

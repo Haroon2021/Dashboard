@@ -1,13 +1,11 @@
-import Image from "next/image";
-import { getData } from "./test/apiCall";
+import TestDataFetch from "./component/TestDataFetch";
 
-export default async function Home() {
-  const testData = await getData();
-  console.log(testData.dimensions[0].dimension_name);
+export default function Home() {
+  
   return (
     <>
-    {testData.dimensions[0].dimension_name}
     <h1>Dashboard</h1>
+    <TestDataFetch />
     </>
   );
 }
