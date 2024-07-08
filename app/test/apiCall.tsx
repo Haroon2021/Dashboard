@@ -3,12 +3,7 @@
 
 async function getTestData() {
   const res = await fetch(
-    'https://api.beta.ons.gov.uk/v1/datasets/TS008/editions/2021/versions/1/json',
-    {
-      next: {
-        revalidate: 0, // use 0 to opt out of using cache
-      },
-    }
+    'https://api.beta.ons.gov.uk/v1/datasets/TS008/editions/2021/versions/1/json'
   );
 
   return res.json();
