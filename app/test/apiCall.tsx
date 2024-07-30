@@ -15,11 +15,12 @@ async function getTestData({ dataset, edition, version }: TestDataProps) {
   // construct url using edition version number etc
   const url = `https://api.beta.ons.gov.uk/v1/datasets/${dataset}/editions/${edition}/versions/${version}/json`;
   const res = await fetch(
-    'https://api.beta.ons.gov.uk/v1/datasets/TS008/editions/2021/versions/1/json'
+    url
   );
 
   return res.json();
 }
+
 
 // Call tile list
 export default async function TestData() {
@@ -31,6 +32,20 @@ export default async function TestData() {
     edition: '2021',
     version: '1',
   });
+
+  const labourMarketONSData = await getTestData({
+    dataset: 'labour-market',
+    edition: 'PWT23',
+    version: '2 ',
+  });
+
+  const inflationONSData = await getTestData({
+    dataset: 'consumerpriceinflation',
+    edition: 'latest',
+    version: '1',
+  });
+
+
   console.log('testONSData', testONSData);
 
   return (
@@ -38,6 +53,7 @@ export default async function TestData() {
       <p>{testONSData.observations}</p>
       <p>{testONSData.links.dataset_metadata.href}</p>
       <p>{testONSData.dimensions[0].dimension_name}</p>
+      {/* <p>{labourMarketONSData}</p> */}
     </>
   );
 }
