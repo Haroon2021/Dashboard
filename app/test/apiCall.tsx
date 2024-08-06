@@ -7,6 +7,14 @@ interface TestDataProps {
   version: string;
 }
 
+interface AlphaVillageDataProps {
+  freq: string; 
+  stockticker: string; 
+  exchange?: string;
+  outputsize?: string; 
+  apikey: string;
+}
+
 // TODO
 // rearrange the function below so it uses the constructed URL instead of the hardcoded URL so we can use it more generally.
 // Next create a bunch of calls to get different data inf GDP emp and unemp using this new function.
@@ -20,6 +28,24 @@ async function getTestData({ dataset, edition, version }: TestDataProps) {
 
   return res.json();
 }
+
+// Alphavantage data
+
+// https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=TSCO.LON&outputsize=full&apikey=1RR1EC061IE9S8XH
+
+async function getAlphaVantageData({ freq, stockticker, exchange,outputsize, apikey  }: AlphaVillageDataProps) {
+  // construct url using edition version number etc
+  const url = `https://www.alphavantage.co/query?function=${freq}&symbol=${stockticker}${exchange && `.${exchange}` }${outputsize&& `&outputsize=${outputsize}`}&apikey=${apikey}`;
+  const res = await fetch(
+    url
+  );
+
+  return res.json();
+}
+
+
+
+
 
 
 // Call tile list
@@ -36,7 +62,7 @@ export default async function TestData() {
   const labourMarketONSData = await getTestData({
     dataset: 'labour-market',
     edition: 'PWT23',
-    version: '2 ',
+    version: '1 ',
   });
 
   const inflationONSData = await getTestData({
@@ -45,15 +71,25 @@ export default async function TestData() {
     version: '1',
   });
 
+  const testAlphaVantageData = await getAlphaVantageData({
+    freq: 'TIME_SERIES_DAILY',
+    stockticker: 'TSCO',
+    exchange: 'LON',
+    outputsize:'full' ,
+    apikey: '1RR1EC061IE9S8XH' ,
+  });
 
-  console.log('testONSData', testONSData);
+  console.log('testAlphaVantageData',testAlphaVantageData['Time Series (Daily)']['2005-01-04'])
+
+  // console.log('testONSData.observations', testONSData.observations);
+  // console.log('labourMarketONSData',labourMarketONSData)
 
   return (
     <>
       <p>{testONSData.observations}</p>
       <p>{testONSData.links.dataset_metadata.href}</p>
       <p>{testONSData.dimensions[0].dimension_name}</p>
-      {/* <p>{labourMarketONSData}</p> */}
+      <p>{labourMarketONSData.observations}</p> 
     </>
   );
 }
