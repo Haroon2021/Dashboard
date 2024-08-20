@@ -8,10 +8,10 @@ interface TestDataProps {
 }
 
 interface AlphaVillageDataProps {
-  freq: string; 
-  stockticker: string; 
+  freq: string;
+  stockticker: string;
   exchange?: string;
-  outputsize?: string; 
+  outputsize?: string;
   apikey: string;
 }
 
@@ -22,9 +22,7 @@ interface AlphaVillageDataProps {
 async function getTestData({ dataset, edition, version }: TestDataProps) {
   // construct url using edition version number etc
   const url = `https://api.beta.ons.gov.uk/v1/datasets/${dataset}/editions/${edition}/versions/${version}/json`;
-  const res = await fetch(
-    url
-  );
+  const res = await fetch(url);
 
   return res.json();
 }
@@ -33,20 +31,27 @@ async function getTestData({ dataset, edition, version }: TestDataProps) {
 
 // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=TSCO.LON&outputsize=full&apikey=1RR1EC061IE9S8XH
 
-async function getAlphaVantageData({ freq, stockticker, exchange,outputsize, apikey  }: AlphaVillageDataProps) {
+async function getAlphaVantageData({
+  freq,
+  stockticker,
+  exchange,
+  outputsize,
+  apikey,
+}: AlphaVillageDataProps) {
   // construct url using edition version number etc
-  const url = `https://www.alphavantage.co/query?function=${freq}&symbol=${stockticker}${exchange && `.${exchange}` }${outputsize&& `&outputsize=${outputsize}`}&apikey=${apikey}`;
-  const res = await fetch(
-    url
-  );
+  const url = `https://www.alphavantage.co/query?function=${freq}&symbol=${stockticker}${
+    exchange && `.${exchange}`
+  }${outputsize && `&outputsize=${outputsize}`}&apikey=${apikey}`;
+  const res = await fetch(url);
 
   return res.json();
 }
 
-
-
-
-
+const getMostRecentWeekday = (): string => {
+  // create a date
+  console.log(new Date());
+  return '';
+};
 
 // Call tile list
 export default async function TestData() {
@@ -75,21 +80,21 @@ export default async function TestData() {
     freq: 'TIME_SERIES_DAILY',
     stockticker: 'TSCO',
     exchange: 'LON',
-    outputsize:'full' ,
-    apikey: '1RR1EC061IE9S8XH' ,
+    outputsize: 'full',
+    apikey: '1RR1EC061IE9S8XH',
   });
 
-  console.log('testAlphaVantageData',testAlphaVantageData['Time Series (Daily)']['2005-01-04'])
+  // console.log('testAlphaVantageData',testAlphaVantageData['Time Series (Daily)']['2024-08-19']['4. close'])
+  console.log('testAlphaVantageData',testAlphaVantageData)
 
-  // console.log('testONSData.observations', testONSData.observations);
-  // console.log('labourMarketONSData',labourMarketONSData)
+  const tescoStockClosePrice =
+    testAlphaVantageData?.['Time Series (Daily)']?.['2024-08-19']?.['4. close'];
+
+  getMostRecentWeekday();
 
   return (
     <>
-      <p>{testONSData.observations}</p>
-      <p>{testONSData.links.dataset_metadata.href}</p>
-      <p>{testONSData.dimensions[0].dimension_name}</p>
-      <p>{labourMarketONSData.observations}</p> 
+      <p>{tescoStockClosePrice}</p>
     </>
   );
 }
