@@ -6,6 +6,7 @@ export default function Home() {
     <>
       <h1>Dashboard</h1>
       <TestData />
+      <TestDataFetch />
     </>
   );
 }

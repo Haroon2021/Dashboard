@@ -49,7 +49,7 @@ async function getAlphaVantageData({
 
 const getMostRecentWeekday = (): string => {
   // create a date
-  console.log(new Date());
+  // console.log(new Date());
   return '';
 };
 
@@ -85,7 +85,7 @@ export default async function TestData() {
   });
 
   // console.log('testAlphaVantageData',testAlphaVantageData['Time Series (Daily)']['2024-08-19']['4. close'])
-  console.log('testAlphaVantageData',testAlphaVantageData)
+  // console.log('testAlphaVantageData',testAlphaVantageData)
 
   const tescoStockClosePrice =
     testAlphaVantageData?.['Time Series (Daily)']?.['2024-08-19']?.['4. close'];
