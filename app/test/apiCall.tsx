@@ -55,46 +55,26 @@ const getMostRecentWeekday = (): string => {
 
 // Call tile list
 export default async function TestData() {
-  // This calls the fetch function above and saves the data in testONDData object
-  // Have 4 calls to different data sets by using getTestData function
-  // inputs should be dataset id version number edition number.
-  const testONSData = await getTestData({
-    dataset: 'TS008',
-    edition: '2021',
-    version: '1',
-  });
 
-  const labourMarketONSData = await getTestData({
-    dataset: 'labour-market',
-    edition: 'PWT23',
-    version: '1 ',
-  });
-
-  const inflationONSData = await getTestData({
-    dataset: 'consumerpriceinflation',
-    edition: 'latest',
-    version: '1',
-  });
-
-  const testAlphaVantageData = await getAlphaVantageData({
-    freq: 'TIME_SERIES_DAILY',
-    stockticker: 'TSCO',
-    exchange: 'LON',
-    outputsize: 'full',
-    apikey: '1RR1EC061IE9S8XH',
-  });
+  // const testAlphaVantageData = await getAlphaVantageData({
+  //   freq: 'TIME_SERIES_DAILY',
+  //   stockticker: 'TSCO',
+  //   exchange: 'LON',
+  //   outputsize: 'full',
+  //   apikey: '1RR1EC061IE9S8XH',
+  // });
 
   // console.log('testAlphaVantageData',testAlphaVantageData['Time Series (Daily)']['2024-08-19']['4. close'])
   // console.log('testAlphaVantageData',testAlphaVantageData)
 
-  const tescoStockClosePrice =
-    testAlphaVantageData?.['Time Series (Daily)']?.['2024-08-19']?.['4. close'];
+  // const tescoStockClosePrice =
+  //   testAlphaVantageData?.['Time Series (Daily)']?.['2024-08-19']?.['4. close'];
 
-  getMostRecentWeekday();
+  // getMostRecentWeekday();
 
   return (
     <>
-      <p>{tescoStockClosePrice}</p>
+      
     </>
   );
 }

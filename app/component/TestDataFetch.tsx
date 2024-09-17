@@ -6,16 +6,28 @@ import rightmoveData from "../test/rightmoveData.json" with { type: "json" };
 import tescoData from "../test/tescoData.json" with { type: "json" };
 
 export default async function TestDataFetch() {
-  // const test = GetData();
-  console.log('!!!!!!!!!!!',GSKStockData["Meta Data"]["2. Symbol"])
+  // object.keys
+  // order by date
+  //this gives the key 
+  const datesStockPricesAvailable = Object.keys(GSKStockData["Time Series (Daily)"])
+  console.log('!!!!!!!!!!!',Object.keys(GSKStockData["Time Series (Daily)"]))
+  // Select the most recent one you want from time Series daily
+  const latestDate = datesStockPricesAvailable[0]
+  console.log('latestDate',latestDate)
+
+  const mostRecentStockPriceData = GSKStockData["Time Series (Daily)"][latestDate]
+  console.log('mostRecentStockPriceData',mostRecentStockPriceData)
   // optional chaining below
-  console.log('!!!!!!!!!!!',GSKStockData?.["Meta Data"]?.["2. Symbol"])
 
 
 
   return (
     <>
-    <div>TestDataFetch</div>
+    <div>xswpmx </div>
+    <p>{GSKStockData["Meta Data"]["2. Symbol"]}</p>
+    <p>{GSKStockData["Time Series (Daily)"]["2024-09-02"]['1. open']}</p>
+
+
     
     </>
   )
