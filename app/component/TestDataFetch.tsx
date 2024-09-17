@@ -17,15 +17,31 @@ export default async function TestDataFetch() {
 
   const mostRecentStockPriceData = GSKStockData["Time Series (Daily)"][latestDate]
   console.log('mostRecentStockPriceData',mostRecentStockPriceData)
+  const mostRecentOpen = mostRecentStockPriceData[ "1. open"]
+  const mostRecentHigh = mostRecentStockPriceData[ "2. high"]
+  const mostRecentLow = mostRecentStockPriceData[ "3. low"]
+  const mostRecentClose = mostRecentStockPriceData[ "4. close"]
+  const mostRecentVolume = mostRecentStockPriceData[ "5. volume"]
+
+  
   // optional chaining below
 
 
 
   return (
     <>
-    <div>xswpmx </div>
     <p>{GSKStockData["Meta Data"]["2. Symbol"]}</p>
     <p>{GSKStockData["Time Series (Daily)"]["2024-09-02"]['1. open']}</p>
+    <p>Open</p>
+    <p>{mostRecentOpen}</p>
+    <p>High</p>
+    <p>{mostRecentHigh}</p>
+    <p>Low</p>
+    <p>{mostRecentLow}</p>
+    <p>Close</p>
+    <p>{mostRecentClose}</p>
+    <p>Volume</p>
+    <p>{mostRecentVolume}</p>
 
 
     
